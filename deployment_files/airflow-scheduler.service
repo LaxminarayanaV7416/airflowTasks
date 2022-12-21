@@ -1,0 +1,19 @@
+#airflow-webserver.service
+
+[Unit]
+Description=Airflow scheduler daemon
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+
+[Service]
+#EnvironmentFile=/etc/default/airflow
+Environment="PATH=$PATH:/home/ubunut/airflowHudiJobs/airflowVenv/bin"
+User=ubuntu
+Group=ubuntu
+Type=simple
+ExecStart=/home/ubuntu/airflowHudiJobs/airflowVenv/bin/airflow scheduler
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
